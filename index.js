@@ -13,38 +13,52 @@ app.listen(port, function () {
     console.log("Listening to Port " + port);
 });
 
-app.get('/derana/news', (req, res) => {
+app.get('/news', (req, res) => {
 
-    const url = "http://sinhala.adaderana.lk/sinhala-hot-news.php";
-    axios.get(url)
+    
+    
+   
+	
+	var url = req.query.url
+	
+   // const url = "https://www.hirunews.lk/313146/යුක්රේනයේ-න්‍යෂ්ටික-බලාගාරය-අවට-ගැටුම්-ගැන-ජගත්-මහලේකම්-කළකිරීමෙන්";
+    
+	    axios.get(url)
         .then(response => {
 
-            results = [];
-            const $ = cheerio.load(response.data, { decodeEntities: false });
+           
+	    results = [];
+            const $ = cheerio.load(response.data);
+               $('.row .main-article-section ').each((i, element) => {
+            
+            
+            const img = $(element).find('img').attr('data-src');
+            const del = $('script').remove();
+            const news = $(element,'div.article-phara').text().replace('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n','').replace('\n\n\n\n\n\n','').replace('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n','').replace('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n','').replace('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n','').replace('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n','').replace('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n','').replace('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n','').replace('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n','').replace('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n','').replace('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n','').replace('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n','').replace('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n','').replace('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n','').replace('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n','').replace('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n','').replace('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n','').replace('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n','').replace('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n','').replace('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n','').replace('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n','').replace('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n','').replace('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n','').replace('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n','').replace('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n','').replace('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n','').replace('\n\n\n\n\n\n\n',' ');
+            
+             $('center').each((i, element) => {
+            
+            
+            const title = $(element).find('h1.main-tittle').text();
+            const date = $(element).find('p').text();
+            
+            
+            
+            results.push({ img , date , title , news })
+            
+           });
+           
+	       });
+           res.json({ news: results });
+	    
 
-            $('div.news-story div.story-text h2').find('a').each((i, elem) => {
-                let news = {
-                    url: "http://sinhala.adaderana.lk/" + elem.attribs.href,
-                    text: elem.children[0].data
-                }
-                results.push(news)
-            });
+            
 
-            $('div.news-story div.story-text div.thumb-image').find('img').each((i, elem) => {
-                results[i].image = elem.attribs.src;
-            });
-
-            $('div.news-story div.story-text').find('p').each((i, elem) => {
-                results[i].body = elem.children[0].data;
-            });
-
-            res.send({ data: results });
-
-        })
-        .catch(err => {
-            console.log(err);
-        })
 });
+
+});
+    
+    
 
 app.get('/hirunews/news', (req, res) => {
 
