@@ -19,11 +19,11 @@ app.get('/news', (req, res) => {
     
    
 	
-	var url = req.query.url
+	var ur = req.param.url
 	
    // const url = "https://www.hirunews.lk/313146/යුක්රේනයේ-න්‍යෂ්ටික-බලාගාරය-අවට-ගැටුම්-ගැන-ජගත්-මහලේකම්-කළකිරීමෙන්";
     
-	    axios.get(url)
+	    axios.get(ur)
         .then(response => {
 
            
